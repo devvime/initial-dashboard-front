@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators  } from '@angular/forms';
+import Swal from 'sweetalert2';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -8,6 +10,7 @@ import { FormGroup, FormBuilder, Validators  } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
+  public loading: boolean = false;
   public formLogin: FormGroup;
   public formRegister: FormGroup;
   public formRecover: FormGroup;
@@ -20,7 +23,8 @@ export class LoginComponent implements OnInit {
   public recoverPassword: boolean = false;
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -42,8 +46,23 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  handleLogin() {
+  async handleLogin() {
     this.displayFormLoginError();
+    if (this.isInvalid.email || this.isInvalid.password) return;
+    this.loading = true;
+    await this.authService.auth(this.formLogin.value).then(res => {
+      console.log(res);
+      Swal.fire({
+        title: 'Success!',
+        text: 'Do you want to continue',
+        icon: 'success',
+        confirmButtonText: 'Ok',
+        heightAuto: false
+      })
+    }).catch(err => {
+      console.log(err);
+    });
+    this.loading = false;
   }
 
   cleanFormError(input) {

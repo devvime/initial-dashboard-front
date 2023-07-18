@@ -7,7 +7,9 @@
           <form [formGroup]="formLogin" (ngSubmit)="handleLogin()">
             <input class="form-control mb-2" type="email" placeholder="E-mail" formControlName="email" [ngClass]="{ 'is-invalid': isInvalid.email }" (input)="cleanFormError('email')">
             <input class="form-control mb-2" type="password" placeholder="Password" formControlName="password" [ngClass]="{ 'is-invalid': isInvalid.password }" (input)="cleanFormError('password')">
-            <button class="btn btn-primary mr-2" type="submit">Login</button>
+            <button class="btn btn-primary mr-2" type="submit" [disabled]="isInvalid.email || isInvalid.password">
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span> Login
+            </button>
             <button class="btn btn-success mr-2" type="button" (click)="register = true">Register</button>
             <button class="btn text-light" type="button" (click)="recoverPassword = true">Recover password</button>
           </form>
