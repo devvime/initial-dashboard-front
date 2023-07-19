@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-4 offset-lg-4">
-        <div class="box" *ngIf="!register && !recoverPassword">
+        <div class="box" *ngIf="!register && !recoverPassword && !createNewPassword">
           <h2>Login</h2>
           <form [formGroup]="formLogin" (ngSubmit)="handleLogin()">
             <input class="form-control mb-2" type="email" placeholder="E-mail" formControlName="email" [ngClass]="{ 'is-invalid': isInvalid.email }" (input)="cleanFormError('email')">
@@ -20,16 +20,31 @@
             <input class="form-control mb-2" type="text" placeholder="Name" formControlName="name" [ngClass]="{ 'is-invalid': isInvalid.name }" (input)="cleanFormError('name')">
             <input class="form-control mb-2" type="email" placeholder="E-mail" formControlName="email" [ngClass]="{ 'is-invalid': isInvalid.email }" (input)="cleanFormError('email')">
             <input class="form-control mb-2" type="password" placeholder="Password" formControlName="password" [ngClass]="{ 'is-invalid': isInvalid.password }" (input)="cleanFormError('password')">
-            <button class="btn btn-primary mr-2" type="submit">Register</button>
-            <button class="btn text-light mr-2" type="button" (click)="register = false">Voltar</button>
+            <button class="btn btn-primary mr-2" type="submit">
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span> Register
+            </button>
+            <button class="btn text-light mr-2" type="button" (click)="register = false">Back</button>
           </form>
         </div>
         <div class="box" *ngIf="recoverPassword">
           <h2>Recover password</h2>
           <form [formGroup]="formRecover" (ngSubmit)="handleRecover()">
-            <input class="form-control mb-2" type="email" placeholder="E-mail" formControlName="email" [ngClass]="{ 'is-invalid': isInvalid.email }" (input)="cleanFormError('email')">
-            <button class="btn btn-primary mr-2" type="submit">Send</button>
-            <button class="btn text-light mr-2" type="button" (click)="recoverPassword = false">Voltar</button>
+            <input class="form-control mb-2" type="email" placeholder="E-mail" formControlName="email" [ngClass]="{ 'is-invalid': isInvalid.recoverEmail }" (input)="cleanFormError('recoverEmail')">
+            <button class="btn btn-primary mr-2" type="submit">
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span> Send
+            </button>
+            <button class="btn text-light mr-2" type="button" (click)="recoverPassword = false">Back</button>
+          </form>
+        </div>
+        <div class="box" *ngIf="createNewPassword">
+          <h2>Create new password</h2>
+          <form [formGroup]="formCreateNewPassword" (ngSubmit)="handleCreateNewPassword()">
+            <input class="form-control mb-2" type="password" placeholder="New password" formControlName="newPassword" [ngClass]="{ 'is-invalid': isInvalid.createNewPassword }" (input)="cleanFormError('createNewPassword')">
+            <input class="form-control mb-2" type="password" placeholder="Confirm new password" formControlName="confirmNewPassword" [ngClass]="{ 'is-invalid': isInvalid.confirmCreateNewPassword }" (input)="cleanFormError('confirmCreateNewPassword')">
+            <button class="btn btn-primary mr-2" type="submit">
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span> Save
+            </button>
+            <button class="btn text-light mr-2" type="button" (click)="createNewPassword = false">Back</button>
           </form>
         </div>
       </div>
