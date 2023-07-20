@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
-import { parser } from 'src/app/utils/functions';
-import Swal from 'sweetalert2';
 import { AuthService } from 'src/app/services/auth.service';
+import { welcome } from 'src/app/utils/functions';
+import { StorageService } from 'src/app/services/storage.service';
+import { User } from 'src/app/interfaces/user.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,31 +14,24 @@ import { AuthService } from 'src/app/services/auth.service';
 export class DashboardComponent implements OnInit {
 
   public loading: boolean = false;
+  public hello: string = '';
+  public user: User;
 
   constructor(
-    private router: Router,
     private authService: AuthService,
-    private userService: UserService,
+    private storageService: StorageService
   ) { }
 
-  ngOnInit(): void {
-    this.verifyToken();
-  }
-
-  async verifyToken() {
-    if (!localStorage.getItem('token')) this.router.navigate(['/']);
-    environment.api.headers.Authorization = 'Bearer ' + localStorage.getItem('token');
+  async ngOnInit() {
     this.loading = true;
-    await this.authService.verify().catch(err => this.logOut());
-    const token = parser(localStorage.getItem('token'));
-    localStorage.setItem('currentUser', token);    
+    await this.authService.verifyToken();
+    this.hello = welcome();
+    this.user = this.storageService.get('currentUser');
     this.loading = false;
   }
 
   logOut() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('currentUser');
-    this.router.navigate(['/']);
+    this.authService.logOut();
   }
 
 }

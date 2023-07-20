@@ -1,11 +1,25 @@
-<section *ngIf="!loading">
+<nav>
+  <p>{{ hello }} {{ user?.name }}</p>
+</nav>
+<section class="pt-2" *ngIf="!loading">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <h2>Dashboard</h2>
-        <button class="btn btn-warning" (click)="logOut()">Logout</button>
+        <div class="card">
+          <div class="card-body">
+            <h3><strong>Dashboard</strong></h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia quas animi, suscipit molestiae dolorem
+              optio rem minima ducimus sapiente dolore rerum voluptas quidem illo, laboriosam, magnam est distinctio
+              pariatur. Alias.</p>
+            <button class="btnDefault" (click)="logOut()">Logout</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
-<h1 class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></h1>
+<section class="d-flex align-items-center justify-content-center" *ngIf="loading">
+  <div class="spinner-grow" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</section>

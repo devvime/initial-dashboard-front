@@ -1,50 +1,59 @@
 <section>
   <div class="container">
-    <div class="row">
-      <div class="col-md-4 offset-lg-4">
+    <div class="row gx-0">
+      <div class="col-lg-6 offset-lg-1 image">
+        <img src="https://storage.susumo.com.br/images/susumo/app/login.jpg">
+      </div>
+      <div class="col-lg-4 col-box">
         <div class="box" *ngIf="!register && !recoverPassword && !createNewPassword">
-          <h2>Login</h2>
+          <h3>Login</h3>
           <form [formGroup]="formLogin" (ngSubmit)="handleLogin()">
-            <input class="form-control mb-2" type="email" placeholder="E-mail" formControlName="email" [ngClass]="{ 'is-invalid': isInvalid.email }" (input)="cleanFormError('email')">
-            <input class="form-control mb-2" type="password" placeholder="Password" formControlName="password" [ngClass]="{ 'is-invalid': isInvalid.password }" (input)="cleanFormError('password')">
-            <button class="btn btn-primary mr-2" type="submit" [disabled]="isInvalid.email || isInvalid.password">
+            <div class="input-group mb-2">
+              <input class="form-control" type="email" placeholder="E-mail" formControlName="email" [ngClass]="{ 'is-invalid': isInvalid.email }" (input)="cleanFormError('email')">
+              <span class="input-group-text" id="basic-addon1"><i class="material-icons">email</i></span>
+            </div>
+            <div class="input-group mb-2">
+              <input class="form-control" type="password" placeholder="Password" formControlName="password" [ngClass]="{ 'is-invalid': isInvalid.password }" (input)="cleanFormError('password')">
+              <span class="input-group-text" id="basic-addon1"><i class="material-icons">lock</i></span>
+            </div>
+            <button class="btnDefault mr-2" type="submit" [disabled]="isInvalid.email || isInvalid.password">
               <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span> Login
             </button>
-            <button class="btn btn-success mr-2" type="button" (click)="register = true">Register</button>
-            <button class="btn text-light" type="button" (click)="recoverPassword = true">Recover password</button>
+            <button class="btnDefault black mr-2" type="button" (click)="register = true">Register</button>
+            <button class="btn mt-2" type="button" (click)="recoverPassword = true">Recover password</button>
           </form>
         </div>
         <div class="box" *ngIf="register">
-          <h2>Register</h2>
+          <h3>Register</h3>
           <form [formGroup]="formRegister" (ngSubmit)="handleRegister()">
             <input class="form-control mb-2" type="text" placeholder="Name" formControlName="name" [ngClass]="{ 'is-invalid': isInvalid.name }" (input)="cleanFormError('name')">
             <input class="form-control mb-2" type="email" placeholder="E-mail" formControlName="email" [ngClass]="{ 'is-invalid': isInvalid.email }" (input)="cleanFormError('email')">
             <input class="form-control mb-2" type="password" placeholder="Password" formControlName="password" [ngClass]="{ 'is-invalid': isInvalid.password }" (input)="cleanFormError('password')">
-            <button class="btn btn-primary mr-2" type="submit">
+            <button class="btnDefault black mr-2" type="submit">
               <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span> Register
             </button>
-            <button class="btn text-light mr-2" type="button" (click)="register = false">Back</button>
+            <button class="btn mr-2" type="button" (click)="register = false">Back</button>
           </form>
         </div>
         <div class="box" *ngIf="recoverPassword">
-          <h2>Recover password</h2>
+          <h3>Recover password</h3>
           <form [formGroup]="formRecover" (ngSubmit)="handleRecover()">
             <input class="form-control mb-2" type="email" placeholder="E-mail" formControlName="email" [ngClass]="{ 'is-invalid': isInvalid.recoverEmail }" (input)="cleanFormError('recoverEmail')">
-            <button class="btn btn-primary mr-2" type="submit">
+            <button class="btnDefault black mr-2" type="submit">
               <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span> Send
             </button>
-            <button class="btn text-light mr-2" type="button" (click)="recoverPassword = false">Back</button>
+            <button class="btn mr-2" type="button" (click)="recoverPassword = false">Back</button>
           </form>
         </div>
         <div class="box" *ngIf="createNewPassword">
-          <h2>Create new password</h2>
+          <h3>Create new password</h3>
           <form [formGroup]="formCreateNewPassword" (ngSubmit)="handleCreateNewPassword()">
             <input class="form-control mb-2" type="password" placeholder="New password" formControlName="newPassword" [ngClass]="{ 'is-invalid': isInvalid.createNewPassword }" (input)="cleanFormError('createNewPassword')">
             <input class="form-control mb-2" type="password" placeholder="Confirm new password" formControlName="confirmNewPassword" [ngClass]="{ 'is-invalid': isInvalid.confirmCreateNewPassword }" (input)="cleanFormError('confirmCreateNewPassword')">
-            <button class="btn btn-primary mr-2" type="submit">
+            <button class="btnDefault black mr-2" type="submit">
               <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span> Save
             </button>
-            <button class="btn text-light mr-2" type="button" (click)="createNewPassword = false">Back</button>
+            <button class="btn mr-2" type="button" (click)="createNewPassword = false">Back</button>
           </form>
         </div>
       </div>
