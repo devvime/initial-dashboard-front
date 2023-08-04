@@ -1,22 +1,21 @@
 <nav>
   <p>{{ hello }} {{ user?.name }}</p>
 </nav>
-<section class="pt-2" *ngIf="!loading">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-body">
-            <h3><strong>Dashboard</strong></h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia quas animi, suscipit molestiae dolorem
-              optio rem minima ducimus sapiente dolore rerum voluptas quidem illo, laboriosam, magnam est distinctio
-              pariatur. Alias.</p>
-            <button class="btnDefault" (click)="logOut()">Logout</button>
-          </div>
-        </div>
-      </div>
-    </div>
+<aside>
+  <div class="logo">
+    <h1>Dashboard</h1>
+    <img src="https://storage.susumo.com.br/images/susumo/logo/icon.png">
   </div>
+  <div class="content">
+    <ul>
+      <li><a routerLink="/">Home <i class="material-icons">dashboard</i></a></li>
+      <li><a routerLink="/dashboard/settings">Settings <i class="material-icons">settings</i></a></li>
+      <li class="pointer" (click)="logOut()"><a>Logout <i class="material-icons">logout</i></a></li>
+    </ul>
+  </div>
+</aside>
+<section class="py-2" *ngIf="!loading">
+  <router-outlet></router-outlet>
 </section>
 <section class="d-flex align-items-center justify-content-center" *ngIf="loading">
   <div class="spinner-grow" role="status">
